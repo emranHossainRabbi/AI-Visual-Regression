@@ -1,0 +1,102 @@
+{
+  "name": "ai-visual-runner",
+  "displayName": "AI Visual Regression Runner & Analyzer",
+  "description": "Cross-environment visual regression testing powered by Playwright and Gemini Vision with interactive side-by-side defect inspection",
+  "version": "1.0.0",
+  "publisher": "emranhossainrabbi",
+  "author": "Emran Hossain Rabbi",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Testing"
+  ],
+  "activationEvents": [
+    "onView:aiVisualRunnerView"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "AI Visual Regression Runner",
+      "properties": {
+        "aiVisualRunner.geminiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Google Gemini API Key for semantic visual comparison and regression analysis",
+          "scope": "application"
+        },
+        "aiVisualRunner.openaiApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "OpenAI API Key for visual comparison via GPT-4o",
+          "scope": "application"
+        },
+        "aiVisualRunner.claudeApiKey": {
+          "type": "string",
+          "default": "",
+          "description": "Anthropic Claude API Key for visual comparison via Claude 3.5 Sonnet",
+          "scope": "application"
+        },
+        "aiVisualRunner.geminiModel": {
+          "type": "string",
+          "default": "gemini-3.8-flash",
+          "description": "Default AI Vision model for visual audit",
+          "enum": [
+            "gemini-3.8-flash",
+            "gemini-3.5-flash-lite",
+            "gemini-2.5-pro",
+            "gpt-4o",
+            "claude-3-5-sonnet-20241022"
+          ],
+          "scope": "application"
+        },
+        "aiVisualRunner.headed": {
+          "type": "boolean",
+          "default": false,
+          "description": "Run Playwright browsers in headed mode (visible browser windows)",
+          "scope": "application"
+        }
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ai-visual-runner-container",
+          "title": "AI Visual Regression",
+          "icon": "icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "ai-visual-runner-container": [
+        {
+          "type": "webview",
+          "id": "aiVisualRunnerView",
+          "name": "Visual Regression & AI Compare"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "aiVisualRunner.openPanel",
+        "title": "AI Visual: Open Runner Panel"
+      },
+      {
+        "command": "aiVisualRunner.runTest",
+        "title": "AI Visual: Run Regression Test"
+      },
+      {
+        "command": "aiVisualRunner.openReport",
+        "title": "AI Visual: Open Latest HTML Report"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.80.0"
+  },
+  "dependencies": {
+    "@google/genai": "^3.0.0",
+    "fs": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
